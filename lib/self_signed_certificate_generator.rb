@@ -13,7 +13,7 @@ module SelfSignedCertificateGenerator
     subject
 	end
 
-	def generate(opts = {})
+	def generate_certificate(opts = {})
 		key = OpenSSL::PKey::RSA.new(2048)
 		options = DEFAULT_CA_OPTIONS.merge(opts)
 		subject = generate_subject(options)
