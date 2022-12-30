@@ -33,7 +33,7 @@ module SelfSignedCertificateGenerator
     cert.add_extension ef.create_extension("authorityKeyIdentifier", "keyid:always,issuer:always")
 
     cert.sign key, OpenSSL::Digest::SHA256.new
-    puts cert.to_pem
+    cert.to_pem
 	end
 
 end
