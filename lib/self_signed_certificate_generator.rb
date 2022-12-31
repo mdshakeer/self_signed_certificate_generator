@@ -13,9 +13,17 @@ module SelfSignedCertificateGenerator
     subject
 	end
 
+	def set_options(opts)
+		filtered_options = opts.reject{|k,v| v.nil? } # reject options if value is nil
+		filtered_options.delete :expire_in_days if !filtered_options[:expire_in_days].is_a? Integer # delete expire_in_days if value is nil
+		DEFAULT_CA_OPTIONS.merge(
+			filtered_options
+		)
+	end
+
 	def generate_certificate(opts = {})
 		key = OpenSSL::PKey::RSA.new(2048)
-		options = DEFAULT_CA_OPTIONS.merge(opts)
+		options = set_options(opts)
 		subject = generate_subject(options)
 
 		cert = OpenSSL::X509::Certificate.new
