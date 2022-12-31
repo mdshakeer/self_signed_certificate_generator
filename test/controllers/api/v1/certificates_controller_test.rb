@@ -8,8 +8,8 @@ class Api::V1::CertificatesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should return invalid message for errored certificate input" do
-    get api_v1_certificates_expire_date_url(cert: "")
+  test "should return invalid certificate message if no certificate passed" do
+    get api_v1_certificates_expire_date_url
     resp = JSON.parse @response.body
     assert_equal 'Invalid Certificate Input', resp['message']
   end
